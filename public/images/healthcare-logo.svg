@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="56" viewBox="0 0 240 56" role="img" aria-label="Healthcare">
+  <rect x="2" y="3" width="50" height="50" rx="16" fill="#143F48"/>
+  <path d="M15 16v24M39 16v24" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>
+  <path d="M15 28h6l4-8 6 16 4-8h4" fill="none" stroke="#DF8260" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="64" y="37" fill="#173740" font-family="Segoe UI, Arial, sans-serif" font-size="27" font-weight="700" letter-spacing="-1.4">health<tspan fill="#C66F50">care</tspan></text>
+</svg>

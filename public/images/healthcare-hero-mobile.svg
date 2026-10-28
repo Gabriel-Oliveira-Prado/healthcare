@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="400" viewBox="0 0 320 400" role="img" aria-labelledby="title desc">
+  <title id="title">Sua saúde mais perto de você</title>
+  <desc id="desc">Agende atendimentos, acompanhe campanhas e encontre serviços de saúde com facilidade.</desc>
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8f4eb"/><stop offset="1" stop-color="#d5e9df"/></linearGradient></defs>
+  <rect width="320" height="400" rx="18" fill="url(#bg)"/>
+  <circle cx="294" cy="280" r="118" fill="#b9dbca" opacity=".72"/>
+  <text x="22" y="40" fill="#b46c51" font-family="Arial,Helvetica,sans-serif" font-size="9" font-weight="700" letter-spacing="1.2">HEALTHCARE · PARA VOCÊ</text>
+  <text x="22" y="78" fill="#173f45" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" letter-spacing="-.7">Sua saúde mais</text>
+  <text x="22" y="107" fill="#173f45" font-family="Arial,Helvetica,sans-serif" font-size="24" font-weight="700" letter-spacing="-.7">perto de você.</text>
+  <text x="22" y="137" fill="#55776f" font-family="Arial,Helvetica,sans-serif" font-size="10">Agende atendimentos, acompanhe campanhas</text>
+  <text x="22" y="153" fill="#55776f" font-family="Arial,Helvetica,sans-serif" font-size="10">e encontre serviços de saúde com facilidade.</text>
+  <rect x="123" y="185" width="169" height="130" rx="16" fill="#fff"/>
+  <rect x="137" y="200" width="141" height="24" rx="7" fill="#e8f3eb"/>
+  <circle cx="151" cy="212" r="7" fill="#78b49b"/>
+  <path d="M151 208v8m-4-4h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+  <rect x="166" y="209" width="70" height="5" rx="2.5" fill="#6a9b85"/>
+  <rect x="138" y="237" width="40" height="38" rx="7" fill="#e6f3e9"/>
+  <rect x="186" y="237" width="40" height="38" rx="7" fill="#f9eee8"/>
+  <rect x="234" y="237" width="40" height="38" rx="7" fill="#eaf1f6"/>
+  <path d="M149 256l6 6 11-13" fill="none" stroke="#4d9a75" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="206" cy="256" r="7" fill="none" stroke="#df8260" stroke-width="3"/>
+  <path d="M254 248v16m-8-8h16" stroke="#7da4bf" stroke-width="3" stroke-linecap="round"/>
+  <rect x="138" y="287" width="111" height="5" rx="2.5" fill="#bed9ca"/>
+  <rect x="138" y="298" width="75" height="4" rx="2" fill="#e1ede6"/>
+</svg>

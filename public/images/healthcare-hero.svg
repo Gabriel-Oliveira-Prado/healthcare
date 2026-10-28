@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="340" viewBox="0 0 1200 340" role="img" aria-labelledby="title desc">
+  <title id="title">Sua saúde mais perto de você</title>
+  <desc id="desc">Agende atendimentos, acompanhe campanhas e encontre serviços de saúde com facilidade.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e8f4eb"/><stop offset="1" stop-color="#d5e9df"/></linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="15" flood-color="#39705d" flood-opacity=".13"/></filter>
+  </defs>
+  <rect width="1200" height="340" rx="20" fill="url(#bg)"/>
+  <circle cx="1110" cy="-20" r="210" fill="#c2e1d0" opacity=".55"/>
+  <circle cx="985" cy="310" r="172" fill="#b9dbca" opacity=".53"/>
+  <path d="M703 0c80 78 140 137 219 191" fill="none" stroke="#f6fbf7" stroke-width="2" opacity=".7"/>
+  <text x="62" y="58" fill="#b46c51" font-family="Arial,Helvetica,sans-serif" font-size="12" font-weight="700" letter-spacing="2.5">HEALTHCARE · PARA VOCÊ</text>
+  <text x="62" y="119" fill="#173f45" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="700" letter-spacing="-1.8">Sua saúde mais perto</text>
+  <text x="62" y="165" fill="#173f45" font-family="Arial,Helvetica,sans-serif" font-size="43" font-weight="700" letter-spacing="-1.8">de você.</text>
+  <text x="62" y="210" fill="#55776f" font-family="Arial,Helvetica,sans-serif" font-size="15">Agende atendimentos, acompanhe campanhas e</text>
+  <text x="62" y="232" fill="#55776f" font-family="Arial,Helvetica,sans-serif" font-size="15">encontre serviços de saúde com facilidade.</text>
+  <g filter="url(#shadow)">
+    <rect x="829" y="48" width="254" height="228" rx="23" fill="#ffffff"/>
+    <rect x="851" y="70" width="210" height="34" rx="9" fill="#e8f3eb"/>
+    <circle cx="871" cy="87" r="10" fill="#78b49b"/>
+    <path d="M871 81v12m-6-6h12" stroke="#fff" stroke-width="2.7" stroke-linecap="round"/>
+    <rect x="892" y="80" width="105" height="6" rx="3" fill="#6a9b85"/>
+    <rect x="892" y="91" width="72" height="4" rx="2" fill="#bdd6c8"/>
+    <rect x="854" y="124" width="74" height="60" rx="12" fill="#e6f3e9"/>
+    <rect x="936" y="124" width="58" height="60" rx="12" fill="#f9eee8"/>
+    <rect x="1002" y="124" width="58" height="60" rx="12" fill="#eaf1f6"/>
+    <path d="M875 155l10 10 17-21" fill="none" stroke="#4d9a75" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="965" cy="150" r="10" fill="none" stroke="#df8260" stroke-width="4"/>
+    <path d="M965 144v7l4 3" fill="none" stroke="#df8260" stroke-width="3" stroke-linecap="round"/>
+    <path d="M1020 142v22m-11-11h22" stroke="#7da4bf" stroke-width="5" stroke-linecap="round"/>
+    <rect x="854" y="205" width="160" height="7" rx="3.5" fill="#bed9ca"/>
+    <rect x="854" y="222" width="122" height="6" rx="3" fill="#e1ede6"/>
+    <rect x="854" y="238" width="180" height="6" rx="3" fill="#e1ede6"/>
+  </g>
+  <g filter="url(#shadow)"><rect x="781" y="223" width="148" height="54" rx="13" fill="#fff"/><circle cx="808" cy="250" r="14" fill="#f7e8df"/><path d="M802 250h12m-6-6v12" stroke="#df8260" stroke-width="3" stroke-linecap="round"/><rect x="834" y="241" width="68" height="5" rx="2.5" fill="#6e9b8a"/><rect x="834" y="252" width="49" height="4" rx="2" fill="#d4e4d9"/></g>
+</svg>
