@@ -8,6 +8,19 @@ Para marcar uma consulta ou exame, acompanhar campanhas de saúde e encontrar um
 
 O Healthcare propõe uma interface simples que reúne esses caminhos em um portal voltado ao cidadão.
 
+## Objetivo
+
+Oferecer uma aplicação React navegável que centralize o acesso a informações e serviços básicos de saúde. Nesta etapa, o foco é demonstrar a experiência de uso, a organização das telas e o fluxo de acesso à área restrita.
+
+## Integrantes
+
+- Gabriel Oliveira
+- Alune Justino
+- Pedro Henrique Canto Bezerra
+- Carlos Henrique
+
+O planejamento do grupo está no [quadro do Trello](https://trello.com/b/KRnf6XEe/trabalho-uninassau). As contribuições de código de cada pessoa devem ser identificadas pelo autor dos commits e pelos Pull Requests no [repositório do GitHub](https://github.com/Gabriel-Oliveira-Prado/healthcare).
+
 ## Funcionalidades propostas
 
 1. Agendamento online de consultas e exames em postos de saúde.
