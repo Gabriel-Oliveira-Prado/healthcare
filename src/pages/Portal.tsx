@@ -27,6 +27,7 @@ const screens = {
 export default function Portal({ page }: { page: PortalSection }) {
   const Screen = screens[page]
   return <div className="portal-shell">
+    <a className="portal-skip-link" href="#conteudo-principal">Ir para o conteúdo</a>
     <aside className="portal-sidebar d-none d-lg-flex flex-column" aria-label="Menu do portal">
       <Brand light className="portal-sidebar-brand" />
       <p className="portal-sidebar-caption">PORTAL DE SAÚDE</p>
@@ -35,8 +36,8 @@ export default function Portal({ page }: { page: PortalSection }) {
     </aside>
     <div className="portal-workspace">
       <header className="portal-topbar"><div className="d-lg-none"><Brand /></div><span className="portal-topbar-title d-none d-lg-inline">Healthcare · Seu portal de saúde</span><a href="#/logout" className="portal-mobile-exit d-lg-none text-danger ms-auto" aria-label="Sair"><i className="bi bi-box-arrow-right" /></a></header>
-      <nav className="portal-mobile-nav d-lg-none" aria-label="Seções do portal">{menu.map(item => <a key={item.id} href={`#/${item.id}`} className={page === item.id ? 'active' : ''}>{item.label}</a>)}</nav>
-      <main className="portal-main"><Screen /></main>
+      <nav className="portal-mobile-nav d-lg-none" aria-label="Seções do portal">{menu.map(item => <a key={item.id} href={`#/${item.id}`} className={page === item.id ? 'active' : ''} aria-current={page === item.id ? 'page' : undefined}>{item.label}</a>)}</nav>
+      <main className="portal-main" id="conteudo-principal" tabIndex={-1}><Screen /></main>
       <footer className="portal-footer">© 2026 Healthcare.</footer>
     </div>
   </div>
