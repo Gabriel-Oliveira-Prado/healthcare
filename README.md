@@ -15,7 +15,7 @@ Oferecer uma aplicação React navegável que centralize o acesso a informaçõe
 ## Integrantes
 
 - Gabriel Oliveira
-- Alune Justino
+- Marcelo Justino
 - Pedro Henrique Canto Bezerra
 - Carlos Henrique
 
