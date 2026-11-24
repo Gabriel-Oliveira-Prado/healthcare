@@ -30,25 +30,24 @@ O planejamento do grupo está no [quadro do Trello](https://trello.com/b/KRnf6XE
 
 ## Telas exigidas
 
-| Requisito | Rota | Nesta versão |
-| --- | --- | --- |
-| Login de acesso à área restrita | `#/login` | Valida e-mail e senha cadastrados e inicia uma sessão. |
-| Esqueci minha senha | `#/forgot` | Permite trocar a senha usando o código de recuperação recebido no cadastro. |
-| Logoff | `#/logout` | Encerra a sessão e retorna à tela pública. |
-| Cadastro de usuário | `#/register` | Cria uma conta e mostra o código de recuperação uma única vez. |
-| Página com conteúdo do tema | `#/inicio` | Portal de saúde acessível apenas após o login, com as quatro áreas abaixo. |
+| Requisito                       | Rota         | Nesta versão                                                                                                                    |
+| ------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
+| Cadastro de usuário             | `#/register` | Nome e sobrenome, e-mail, senha (8+ caracteres, com letra e número) e confirmação, com erros por campo. Impede e-mail repetido. |
+| Login de acesso à área restrita | `#/login`    | Valida e-mail e senha cadastrados e inicia uma sessão simulada (8 horas).                                                       |
+| Esqueci minha senha             | `#/forgot`   | Pede o e-mail, "envia" um código de 6 números (exibido na tela como e-mail simulado) e define a nova senha.                     |
+| Logoff                          | `#/logout`   | Encerra a sessão e volta para a tela pública.                                                                                   |
+| Página com conteúdo do tema     | `#/inicio`   | Portal de saúde acessível apenas com login, com as quatro áreas abaixo.                                                         |
 
 As áreas de conteúdo são `#/agendamentos`, `#/campanhas`, `#/unidades` e `#/orientacoes`.
 
-## Como acessar a área restrita
+## Como funciona a autenticação (simulada)
 
-- Inicie a aplicação e abra `http://localhost:5173`.
-- Use **Cadastre-se** para criar uma conta com nome, e-mail e senha de pelo menos 8 caracteres.
-- Guarde o código exibido após o cadastro. Entre com o e-mail e a senha criados. Não há conta administrativa pré-cadastrada: `admin@gmail.com` e `123` não dão acesso.
-- **Esqueci minha senha** exige o e-mail, o código guardado e uma nova senha. Após a troca, salve o novo código que aparece.
-- **Sair da conta** encerra a sessão. Acessar diretamente uma rota do portal sem sessão leva ao login.
+Não há servidor: contas, sessão e códigos de recuperação ficam no `localStorage` do navegador (`src/auth/authService.ts`). Senhas são guardadas com hash SHA-256 e sal, nunca em texto puro, mas isso **não** substitui a segurança de um back-end real.
 
-As contas ficam em `server/data/users.json`, criado ao cadastrar a primeira pessoa e ignorado pelo Git. As senhas e códigos são armazenados como hashes. A sessão usa cookie `HttpOnly` e `SameSite=Strict` e expira após 8 horas ou no logoff. As sessões em memória são encerradas se o servidor reiniciar.
+- **Rotas protegidas:** `ProtectedRoute` (`src/components/RouteGuards.tsx`) só renderiza o portal com sessão válida. Sem sessão, a pessoa vai para o login com um aviso e, depois de entrar, volta para a página que tentou abrir. Quem já está logado e abre `#/login`, `#/register` ou `#/forgot` é levado ao portal. A sessão é revalidada a cada navegação e sincronizada entre abas.
+- **Recuperação:** o código vale 15 minutos, pode ser usado uma vez e é bloqueado após 5 tentativas erradas. Trocar a senha encerra a sessão aberta.
+- **Validação:** regras em `src/auth/validation.ts`; o erro de cada campo aparece ao sair dele ou ao enviar o formulário.
+- Não existe conta pré-cadastrada: crie uma em **Cadastre-se**. Para limpar os dados de teste, apague o armazenamento local do site no navegador.
 
 ## Conteúdo do portal
 
@@ -58,7 +57,9 @@ As contas ficam em `server/data/users.json`, criado ao cadastrar a primeira pess
 
 ## Limites desta versão
 
-A recuperação usa o código mostrado no cadastro porque não há serviço de e-mail integrado. Se ele for perdido, esta versão não oferece outro meio de recuperar a conta. Não há agendamento real, envio de notificações ou aconselhamento individual. O mapa não solicita a localização do usuário. O servidor local usa um arquivo JSON para contas; para publicação com dados reais, seria necessário um banco de dados, HTTPS, e-mail para recuperação e infraestrutura operacional adequada.
+O login, o cadastro e a recuperação são simulações no navegador: os dados não saem do aparelho, não há e-mail real e qualquer pessoa com acesso ao navegador pode ler o armazenamento local. Não há agendamento real, envio de notificações ou aconselhamento individual. O mapa não solicita a localização do usuário. Para publicação com dados reais seria necessário back-end com banco de dados, HTTPS e serviço de e-mail.
+
+A pasta `server/` guarda uma API Node anterior (sessão por cookie, hashes scrypt). O front-end não a usa mais; ela continua disponível com `npm run dev:api` e `npm run test:api`, e pode ser removida.
 
 ## Tecnologias e visual
 
@@ -73,10 +74,9 @@ npm install
 npm run dev
 ```
 
-O comando inicia o servidor da API na porta 3001 e o Vite na porta 5173. Para executar a versão compilada, rode `npm run build` e `npm start`, abrindo `http://localhost:3001`. O endereço local usa HTTP; cookies seguros em produção exigem HTTPS.
-
-Para verificar a compilação:
+Abra `http://localhost:5173`. Para verificar a compilação e os testes (validação, serviço de autenticação e fluxos de tela):
 
 ```bash
 npm run build
+npm test
 ```

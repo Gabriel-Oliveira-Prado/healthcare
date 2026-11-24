@@ -34,3 +34,20 @@ button, input { font: inherit; }
 @media (max-width: 991px) { .auth-main { min-height: 100vh; padding: 25px 7% 24px; } .auth-content { min-height: 0; padding: 40px 0 60px; } }
 @media (max-width: 575px) { .auth-main { padding-inline: 24px; } .mobile-brand .brand img { width: 195px; height: auto; } }
 
+
+/* Formulários de autenticação */
+.field-control { position: relative; }
+.form-control.has-toggle { padding-right: 48px; }
+.form-control.is-invalid { border-color: #c0392b; background-image: none; }
+.form-control.is-invalid:focus { box-shadow: 0 0 0 3px #c0392b26; }
+.field-toggle { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 46px; height: 51px; border: 0; background: none; color: #71848a; font-size: 18px; }
+.field-toggle:hover { color: #173740; }
+.field-toggle:focus-visible { outline: 2px solid #df8260; outline-offset: -2px; border-radius: 8px; }
+.field-error { margin-top: 6px; color: #b03a2e; font-size: 12px; font-weight: 600; }
+.password-rules { display: grid; gap: 3px; margin: -4px 0 16px; padding: 0; color: #8a9c9a; font-size: 12px; list-style: none; }
+.password-rules li.ok { color: #2f7d61; }
+.simulated-mail { margin-bottom: 20px; padding: 14px 16px; border: 1px dashed #c76e4d; border-radius: 8px; background: #fff7f2; color: #5b4037; font-size: 12px; }
+.simulated-mail-tag { display: block; margin-bottom: 6px; color: #c76e4d; font-size: 10px; font-weight: 800; letter-spacing: 1.5px; }
+.simulated-mail-code { display: block; font-family: Manrope, sans-serif; font-size: 26px; letter-spacing: 6px; }
+.btn-link-inline { padding: 0; border: 0; background: none; color: #b96143; font-size: 13px; font-weight: 700; }
+.btn-link-inline:hover { color: #9d4c32; }
