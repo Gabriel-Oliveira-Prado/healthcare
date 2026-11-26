@@ -5,8 +5,9 @@ import Campaigns from './Campaigns'
 import Units from './Units'
 import Guidance from './Guidance'
 import './portal.css'
+import HealthContent from "./health/HealthContent";
 
-export type PortalSection = 'inicio' | 'agendamentos' | 'campanhas' | 'unidades' | 'orientacoes'
+export type PortalSection = 'inicio' | 'agendamentos' | 'campanhas' | 'unidades' | 'orientacoes' | 'conteudos'
 
 const menu: { id: PortalSection, label: string, icon: string }[] = [
   { id: 'inicio', label: 'Início', icon: 'bi-grid-1x2' },
@@ -14,6 +15,7 @@ const menu: { id: PortalSection, label: string, icon: string }[] = [
   { id: 'campanhas', label: 'Campanhas', icon: 'bi-bell' },
   { id: 'unidades', label: 'Unidades próximas', icon: 'bi-geo-alt' },
   { id: 'orientacoes', label: 'Orientações', icon: 'bi-chat-heart' },
+  { id: 'conteudos', label: 'Conteúdos de saúde', icon: 'bi-journal-medical' },
 ]
 
 const screens = {
@@ -22,6 +24,7 @@ const screens = {
   campanhas: Campaigns,
   unidades: Units,
   orientacoes: Guidance,
+  conteudos: HealthContent,
 }
 
 export default function Portal({ page }: { page: PortalSection }) {

@@ -10,6 +10,7 @@ export const privateRoutes: PortalSection[] = [
   "campanhas",
   "unidades",
   "orientacoes",
+  "conteudos",
 ];
 const legacyAliases = ["dashboard", "crm", "portal"];
 
