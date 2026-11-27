@@ -22,7 +22,7 @@ React 19, TypeScript, Vite, Bootstrap, Node.js (HTTP nativo), scrypt, cookies Ht
 
 ## Como executar
 
-Requer Node.js 20+ e npm.
+Requer Node.js 22.9+ e npm.
 
 ```bash
 npm install
@@ -39,6 +39,8 @@ A recuperação usa o serviço Resend, sem biblioteca adicional. Para enviar e-m
 2. Cadastre e verifique um domínio de envio no Resend.
 3. Crie uma API Key.
 4. Configure as variáveis de ambiente antes de iniciar `npm run dev`:
+
+Copie `.env.example` para `.env` na raiz do projeto e preencha os dois valores. Os comandos `dev` e `start` carregam esse arquivo automaticamente. Alternativamente, configure as variáveis diretamente no terminal.
 
 PowerShell (Windows):
 
