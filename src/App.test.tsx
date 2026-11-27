@@ -104,7 +104,7 @@ describe('fluxo de acesso', () => {
     const user = userEvent.setup(); render(<App />); await register(user); await go('#/forgot')
     await user.type(await screen.findByLabelText('E-mail cadastrado'), 'maria@exemplo.com')
     await user.click(screen.getByRole('button', { name: 'Enviar código' }))
-    await screen.findByText(/código enviado/)
+    await screen.findByText(/enviamos um código/)
     await user.type(screen.getByLabelText('Código de recuperação'), '123456')
     await user.type(screen.getByLabelText('Nova senha'), 'novasenha9')
     await user.type(screen.getByLabelText('Confirmar nova senha'), 'novasenha9')
