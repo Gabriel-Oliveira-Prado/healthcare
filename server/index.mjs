@@ -86,6 +86,7 @@ function sameOrigin(request) {
       /^127\.0\.0\.1:3001$/.test(host || '') && request.socket.remoteAddress === '127.0.0.1'
   } catch { return false }
 }
+function escapeHtml(value) { return String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;') }
 async function sendRecoveryEmail(user, code) {
   const apiKey = process.env.RESEND_API_KEY
   const from = process.env.EMAIL_FROM
@@ -98,7 +99,7 @@ async function sendRecoveryEmail(user, code) {
       to: [user.email],
       subject: 'Código para redefinir sua senha - Healthcare',
       text: `Olá, ${user.name}. Seu código de recuperação é ${code}. Ele expira em 15 minutos e só pode ser usado uma vez. Se você não solicitou a troca, ignore este e-mail.`,
-      html: `<p>Olá, ${user.name}.</p><p>Seu código de recuperação do Healthcare é:</p><p style="font-size:28px;font-weight:bold;letter-spacing:6px">${code}</p><p>Ele expira em 15 minutos e só pode ser usado uma vez. Se você não solicitou a troca, ignore este e-mail.</p>`,
+      html: `<p>Olá, ${escapeHtml(user.name)}.</p><p>Seu código de recuperação do Healthcare é:</p><p style="font-size:28px;font-weight:bold;letter-spacing:6px">${code}</p><p>Ele expira em 15 minutos e só pode ser usado uma vez. Se você não solicitou a troca, ignore este e-mail.</p>`,
     }),
   })
   if (!response.ok) throw new Error(`Falha no serviço de e-mail: HTTP ${response.status}`)
