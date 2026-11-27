@@ -83,7 +83,7 @@ function sameOrigin(request) {
     if (url.host === host) return url.protocol === 'https:' || (url.protocol === 'http:' && process.env.NODE_ENV !== 'production')
     return process.env.NODE_ENV !== 'production' && url.protocol === 'http:' &&
       ['localhost', '127.0.0.1'].includes(url.hostname) && /^517[3-9]$/.test(url.port) &&
-      /^127\\.0\\.0\\.1:3001$/.test(host || '') && request.socket.remoteAddress === '127.0.0.1'
+      /^127\.0\.0\.1:3001$/.test(host || '') && request.socket.remoteAddress === '127.0.0.1'
   } catch { return false }
 }
 async function sendRecoveryEmail(user, code) {
@@ -114,10 +114,10 @@ async function api(request, response, path) {
   try { body = await bodyOf(request) } catch { return json(response, 400, { error: 'Dados inválidos' }) }
 
   if (path === '/api/register') {
-    const name = String(body.name || '').trim().replace(/\\s+/g, ' ')
+    const name = String(body.name || '').trim().replace(/\s+/g, ' ')
     const email = String(body.email || '').trim().toLowerCase()
     const password = String(body.password || '')
-    if (name.length < 2 || name.length > 100 || !/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) || password.length < 8 || password.length > 128 || !/[a-zA-ZÀ-ÿ]/.test(password) || !/\\d/.test(password)) return json(response, 400, { error: 'Informe nome, e-mail válido e senha com pelo menos 8 caracteres, letras e números.' })
+    if (name.length < 2 || name.length > 100 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || password.length < 8 || password.length > 128 || !/[a-zA-ZÀ-ÿ]/.test(password) || !/\d/.test(password)) return json(response, 400, { error: 'Informe nome, e-mail válido e senha com pelo menos 8 caracteres, letras e números.' })
     if (users.some(user => user.email === email)) return json(response, 409, { error: 'Este e-mail já está cadastrado. Entre na sua conta ou recupere a senha.' })
     const user = { id: randomBytes(16).toString('hex'), name, email, passwordHash: await hashSecret(password) }
     users.push(user)
@@ -140,7 +140,7 @@ async function api(request, response, path) {
   }
   if (path === '/api/forgot-password') {
     const email = String(body.email || '').trim().toLowerCase()
-    if (!/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email)) return json(response, 400, { error: 'Informe um e-mail válido.' })
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return json(response, 400, { error: 'Informe um e-mail válido.' })
     const user = users.find(item => item.email === email)
     if (!user) return json(response, 200, { ok: true })
     const code = String(randomInt(0, 1_000_000)).padStart(6, '0')
@@ -156,7 +156,7 @@ async function api(request, response, path) {
   }
   if (path === '/api/reset-password') {
     const email = String(body.email || '').trim().toLowerCase(), code = String(body.code || ''), newPassword = String(body.newPassword || '')
-    if (!/^\\d{6}$/.test(code) || newPassword.length < 8 || newPassword.length > 128 || !/[a-zA-ZÀ-ÿ]/.test(newPassword) || !/\\d/.test(newPassword)) return json(response, 400, { error: 'Informe um código de 6 números e uma senha válida com letras e números.' })
+    if (!/^\d{6}$/.test(code) || newPassword.length < 8 || newPassword.length > 128 || !/[a-zA-ZÀ-ÿ]/.test(newPassword) || !/\d/.test(newPassword)) return json(response, 400, { error: 'Informe um código de 6 números e uma senha válida com letras e números.' })
     const reset = resets.get(email), user = users.find(item => item.email === email)
     if (!reset || !user || reset.expires < Date.now()) { resets.delete(email); return json(response, 400, { error: 'Código inválido ou expirado. Solicite um novo código.' }) }
     if (reset.attempts >= maxResetAttempts) { resets.delete(email); return json(response, 429, { error: 'Muitas tentativas. Solicite um novo código.' }) }
