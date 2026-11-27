@@ -18,7 +18,7 @@ test('cadastro, login, sessão, logoff e endpoints de recuperação', async () =
       const timer = setTimeout(() => reject(new Error('Servidor não iniciou')), 10000)
       child.stdout.on('data', chunk => {
         output += chunk
-        const match = output.match(/127\\.0\\.0\\.1:(\\d+)/)
+        const match = output.match(/127\.0\.0\.1:(\d+)/)
         if (match) { clearTimeout(timer); resolvePort(match[1]) }
       })
       child.once('error', error => { clearTimeout(timer); reject(error) })
