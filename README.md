@@ -1,16 +1,87 @@
 # Healthcare
 
-Portal de saúde desenvolvido com React, TypeScript, Vite e Bootstrap.
+Portal de saúde desenvolvido com React, TypeScript, Vite, Bootstrap e uma API Node.js.
 
-## Problema
+## Problema e objetivo
 
-Para marcar uma consulta ou exame, acompanhar campanhas de saúde e encontrar uma unidade próxima, a pessoa pode precisar procurar informações em canais diferentes. Essa separação dificulta visualizar, em um só lugar, os serviços disponíveis e as orientações de que precisa.
+O Healthcare reúne em uma interface serviços e informações básicas de saúde para o cidadão, como agendamentos demonstrativos, campanhas, localização de unidades e orientações.
 
-O Healthcare propõe uma interface simples que reúne esses caminhos em um portal voltado ao cidadão.
+## Funcionalidades
 
-## Objetivo
+- Cadastro de usuário com validação de nome, e-mail e senha.
+- Login com senha protegida por hash e sessão de servidor em cookie HttpOnly.
+- Recuperação de senha com código numérico enviado ao e-mail cadastrado.
+- Código de recuperação com validade de 15 minutos, uso único e limite de cinco tentativas.
+- Logout e proteção de páginas privadas.
+- Conteúdo demonstrativo de agendamentos, campanhas e orientações.
+- Mapa de unidades, farmácias e hospitais com OpenStreetMap e Overpass API.
 
-Oferecer uma aplicação React navegável que centralize o acesso a informações e serviços básicos de saúde. Nesta etapa, o foco é demonstrar a experiência de uso, a organização das telas e o fluxo de acesso à área restrita.
+## Tecnologias
+
+React 19, TypeScript, Vite, Bootstrap, Node.js (HTTP nativo), scrypt, cookies HttpOnly e Resend para envio de e-mail.
+
+## Como executar
+
+Requer Node.js 20+ e npm.
+
+```bash
+npm install
+npm run dev
+```
+
+O comando inicia o front-end Vite em `http://localhost:5173` e a API em `http://127.0.0.1:3001`. A API é necessária para cadastro, login e recuperação de senha.
+
+## Configurar o envio de e-mail
+
+A recuperação usa o serviço Resend, sem biblioteca adicional. Para enviar e-mails reais:
+
+1. Crie uma conta em [Resend](https://resend.com/).
+2. Cadastre e verifique um domínio de envio no Resend.
+3. Crie uma API Key.
+4. Configure as variáveis de ambiente antes de iniciar `npm run dev`:
+
+PowerShell (Windows):
+
+```powershell
+$env:RESEND_API_KEY="re_sua_chave"
+$env:EMAIL_FROM="Healthcare <no-reply@seudominio.com>"
+npm run dev
+```
+
+Linux/macOS:
+
+```bash
+export RESEND_API_KEY="re_sua_chave"
+export EMAIL_FROM="Healthcare <no-reply@seudominio.com>"
+npm run dev
+```
+
+Use como `EMAIL_FROM` um remetente permitido pelo domínio verificado no Resend. **Não coloque a API Key no código, no front-end ou no GitHub.** Sem essas duas variáveis, a API informa que o envio não está configurado e não finge que o e-mail foi enviado.
+
+O endpoint de recuperação responde da mesma forma para e-mails cadastrados e não cadastrados, para não revelar quais contas existem. Se o endereço estiver cadastrado, o código é enviado por e-mail. Confira também a pasta de spam.
+
+## Endpoints da API
+
+| Método | Endpoint | Finalidade |
+| --- | --- | --- |
+| POST | `/api/register` | Criar uma conta |
+| POST | `/api/login` | Autenticar e criar sessão |
+| GET | `/api/me` | Consultar sessão atual |
+| POST | `/api/logout` | Encerrar sessão |
+| POST | `/api/forgot-password` | Enviar código de recuperação |
+| POST | `/api/reset-password` | Validar código e alterar senha |
+
+As rotas POST exigem requisição JSON da mesma origem. As senhas e códigos de recuperação são armazenados apenas como hashes scrypt. As sessões usam cookie HttpOnly, SameSite=Strict e validade de oito horas. Em produção, publique sempre com HTTPS.
+
+A lista de sessões e códigos de recuperação fica na memória do processo: reiniciar o servidor encerra as sessões e invalida códigos pendentes. Para um sistema de produção, use armazenamento persistente e um provedor de sessão apropriado.
+
+## Testes e build
+
+```bash
+npm run test:api
+npm test
+npm run build
+```
 
 ## Integrantes
 
@@ -19,64 +90,8 @@ Oferecer uma aplicação React navegável que centralize o acesso a informaçõe
 - Pedro Henrique Canto Bezerra
 - Carlos Henrique
 
-O planejamento do grupo está no [quadro do Trello](https://trello.com/b/KRnf6XEe/trabalho-uninassau). As contribuições de código de cada pessoa devem ser identificadas pelo autor dos commits e pelos Pull Requests no [repositório do GitHub](https://github.com/Gabriel-Oliveira-Prado/healthcare).
+Planejamento: [quadro do Trello](https://trello.com/b/KRnf6XEe/trabalho-uninassau). Repositório: [GitHub](https://github.com/Gabriel-Oliveira-Prado/healthcare).
 
-## Funcionalidades propostas
+## Limites do MVP
 
-1. Agendamento online de consultas e exames em postos de saúde.
-2. Notificações sobre campanhas de vacinação e prevenção.
-3. Mapa de unidades de saúde, farmácias e hospitais.
-4. Orientações sobre primeiros socorros e saúde mental.
-
-## Telas exigidas
-
-| Requisito                       | Rota         | Nesta versão                                                                                                                    |
-| ------------------------------- | ------------ | ------------------------------------------------------------------------------------------------------------------------------- |
-| Cadastro de usuário             | `#/register` | Nome e sobrenome, e-mail, senha (8+ caracteres, com letra e número) e confirmação, com erros por campo. Impede e-mail repetido. |
-| Login de acesso à área restrita | `#/login`    | Valida e-mail e senha cadastrados e inicia uma sessão simulada (8 horas).                                                       |
-| Esqueci minha senha             | `#/forgot`   | Pede o e-mail, "envia" um código de 6 números (exibido na tela como e-mail simulado) e define a nova senha.                     |
-| Logoff                          | `#/logout`   | Encerra a sessão e volta para a tela pública.                                                                                   |
-| Página com conteúdo do tema     | `#/inicio`   | Portal de saúde acessível apenas com login, com as quatro áreas abaixo.                                                         |
-
-As áreas de conteúdo são `#/agendamentos`, `#/campanhas`, `#/unidades` e `#/orientacoes`.
-
-## Como funciona a autenticação (simulada)
-
-Não há servidor: contas, sessão e códigos de recuperação ficam no `localStorage` do navegador (`src/auth/authService.ts`). Senhas são guardadas com hash SHA-256 e sal, nunca em texto puro, mas isso **não** substitui a segurança de um back-end real.
-
-- **Rotas protegidas:** `ProtectedRoute` (`src/components/RouteGuards.tsx`) só renderiza o portal com sessão válida. Sem sessão, a pessoa vai para o login com um aviso e, depois de entrar, volta para a página que tentou abrir. Quem já está logado e abre `#/login`, `#/register` ou `#/forgot` é levado ao portal. A sessão é revalidada a cada navegação e sincronizada entre abas.
-- **Recuperação:** o código vale 15 minutos, pode ser usado uma vez e é bloqueado após 5 tentativas erradas. Trocar a senha encerra a sessão aberta.
-- **Validação:** regras em `src/auth/validation.ts`; o erro de cada campo aparece ao sair dele ou ao enviar o formulário.
-- Não existe conta pré-cadastrada: crie uma em **Cadastre-se**. Para limpar os dados de teste, apague o armazenamento local do site no navegador.
-
-## Conteúdo do portal
-
-- A navegação entre telas funciona, mas agendamentos, campanhas e orientações são conteúdo de demonstração, sem integração com postos de saúde.
-- O mapa é interativo, usa o [OpenStreetMap](https://www.openstreetmap.org/) e busca locais pelo [Overpass API](https://wiki.openstreetmap.org/wiki/Overpass_API). Ele começa em Fortaleza como exemplo; é possível arrastar o mapa e buscar na área exibida.
-- A busca de locais depende de internet e da disponibilidade desses serviços públicos. Os dados podem estar incompletos ou desatualizados.
-
-## Limites desta versão
-
-O login, o cadastro e a recuperação são simulações no navegador: os dados não saem do aparelho, não há e-mail real e qualquer pessoa com acesso ao navegador pode ler o armazenamento local. Não há agendamento real, envio de notificações ou aconselhamento individual. O mapa não solicita a localização do usuário. Para publicação com dados reais seria necessário back-end com banco de dados, HTTPS e serviço de e-mail.
-
-A pasta `server/` guarda uma API Node anterior (sessão por cookie, hashes scrypt). O front-end não a usa mais; ela continua disponível com `npm run dev:api` e `npm run test:api`, e pode ser removida.
-
-## Tecnologias e visual
-
-React, TypeScript, Vite, Bootstrap, Bootstrap Icons e Leaflet. A paleta segue a proporção 60/30/10: fundo claro, verde-petróleo e coral. As imagens e logos estão em `public/images/`.
-
-## Executar localmente
-
-Requer Node.js e npm.
-
-```bash
-npm install
-npm run dev
-```
-
-Abra `http://localhost:5173`. Para verificar a compilação e os testes (validação, serviço de autenticação e fluxos de tela):
-
-```bash
-npm run build
-npm test
-```
+Os agendamentos, campanhas e orientações ainda são demonstrativos, sem integração com unidades de saúde. O mapa depende dos serviços públicos OpenStreetMap/Overpass e pode apresentar dados incompletos ou desatualizados. O projeto é acadêmico e não substitui sistemas de saúde ou atendimento profissional.
